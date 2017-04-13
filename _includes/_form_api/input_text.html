@@ -1,0 +1,73 @@
+{% comment %}
+| Form api for input type text, email ....
+| Call in template with @include _form_api/input_text.html
+|
+| Available parameter
+| type = 'text'      -Set input type // this parameter is required
+| name = 'name'      -Set input name // this parameter is required
+| label = 'label'    -Set label for field
+| value = 'value'    -Set default value if exist
+| required = 'bool'  -Set if field is required
+| error = 'bool'     -Set if field have error
+{% endcomment %}
+
+{% assign error_msg = "<h2>Liquid form api error</h2>" %}
+{% assign error_flag = false %}
+
+{% assign class = "form-item" %}
+
+
+{% if include.type == nill or include.type == "" %}
+    {{ error_msg }}
+    <p>You must add type='type' to input_text.html call </p>
+    {% assign error_flag = true %}
+{% endif %}
+
+
+{% if include.name == nill or include.name == "" %}
+    {{ error_msg }}
+    <p>You must add name='name' to input_text.html call </p>
+    {% assign error_flag = true %}
+{% endif %}
+
+
+
+{% if include.error == true %}
+  {% capture class %}{{ class }} error{% endcapture %}
+{% endif %}
+
+
+{% if error_flag == false %}
+{% comment %}
+| Template start here ===============================================================
+{% endcomment %}
+
+
+{% if include.type != 'hidden' %}
+<div class="{{ class }}">
+{% endif %}
+
+  {% if include.label %}
+    <label for="{{ include.name }}">
+      <span>
+        {{ include.label }}
+        {% if include.required == true %}
+          <i class="required">*</i>
+        {% endif %}
+      </span>
+    </label>
+  {% endif %}
+
+  <input id="{{ include.name }}" type="{{ include.type }}" name="{{ include.name }}" value="{{ include.value }}">
+  {% if include.description %}
+    <div class="description">
+      {{ include.description }}
+    </div>
+  {% endif %}
+
+{% if include.type != 'hidden' %}
+</div> <!-- end form-item -->
+{% endif %}
+
+
+{% endif %}

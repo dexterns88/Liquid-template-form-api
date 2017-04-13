@@ -1,0 +1,39 @@
+{% comment %}
+| Form api for input type textarea
+| Call in template with @include _form_api/input_text.html
+|
+| Available parameter
+| name = 'name'     -Set name for textarea
+| label = 'label'   -Set label for field
+| value = 'value'   -Set value in field
+| required = 'bool' -Set if field is required
+| error = 'bool'    -Set if field have error
+{% endcomment %}
+
+{% assign class='form-item' %}
+
+{% if include.error == true %}
+  {% capture class %}{{ class }} error{% endcapture %}
+{% endif %}
+
+
+{% comment %}
+| Template start here ===============================================================
+{% endcomment %}
+
+<div class="{{ class }}">
+
+  {% if include.label %}
+    <label for="{{ include.name }}">
+      <span>
+        {{ include.label }}
+        {% if include.required == true %}
+          <i class="required">*</i>
+        {% endif %}
+      </span>
+    </label>
+  {% endif %}
+
+  <textarea id="{{ include.name }}" name="{{ include.name }}">{{ include.value }}</textarea>
+
+</div> <!-- end form item -->

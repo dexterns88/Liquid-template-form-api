@@ -1,0 +1,39 @@
+{% comment %}
+
+{% endcomment %}
+
+{% assign options = include.options | split: "|" %}
+
+{% assign class='form-item select-form' %}
+
+
+{% comment %}
+| Template start here ===============================================================
+{% endcomment %}
+
+
+
+<div class="{{ class }}">
+
+  {% if include.label %}
+    <label for="{{ include.name }}">
+      {{ include.label }}
+    </label>
+  {% endif %}
+
+  <select id="{{ include.name }}" name="{{ include.name }}">
+
+    {% for option in options %}
+
+      <option value="{{ option }}" {% if option == include.selected %} selected="selected" {% endif %}>
+        {{ option }}
+      </option>
+    {% endfor %}
+
+  </select>
+
+  {% if include.description %}
+    <div class="description">{{ include.description }}</div>
+  {% endif %}
+
+</div>
